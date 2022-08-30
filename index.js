@@ -39,13 +39,16 @@ program
   .requiredOption("-p, --password <password>")
   .requiredOption("--client-id <clientId>")
   .requiredOption("--user-pool-id <userPoolId>")
+  .option("--token-only")
   .action(async () => {
-    const { username, password, clientId, userPoolId } = program.opts();
+    const { username, password, clientId, userPoolId, tokenOnly } =
+      program.opts();
     const { token, payload } = await getIdToken(
       { clientId, userPoolId },
       { username, password }
     );
-    process.stdout.write(JSON.stringify({ token, payload }));
+    const output = tokenOnly ? token : JSON.stringify({ token, payload });
+    process.stdout.write(output);
   });
 
 program.parseAsync().catch((error) => {
