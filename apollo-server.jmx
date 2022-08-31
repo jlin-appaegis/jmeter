@@ -36,6 +36,11 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">--no-warnings</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
                 <stringProp name="Argument.value">getToken.js</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -117,7 +122,7 @@ ${__setProperty(TENANT_ID, ${tenantId})}</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="refresh identity Thread Group" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="refresh identity Thread Group" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -137,6 +142,11 @@ ${__setProperty(TENANT_ID, ${tenantId})}</stringProp>
           <stringProp name="SystemSampler.command">node</stringProp>
           <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">--no-warnings</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
               <elementProp name="" elementType="Argument">
                 <stringProp name="Argument.name"></stringProp>
                 <stringProp name="Argument.value">getToken.js</stringProp>
@@ -211,10 +221,10 @@ ${__setProperty(TENANT_ID, ${tenantId})}</stringProp>
         </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="main Thread Group" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <intProp name="LoopController.loops">-1</intProp>
+          <stringProp name="LoopController.loops">${__P(LOOP_COUNT)}</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${__P(NUM_THREAD)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(RAMP_UP_PERIOD)}</stringProp>
@@ -244,29 +254,169 @@ ${__setProperty(TENANT_ID, ${tenantId})}</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&quot;operationName&quot;:null,&quot;variables&quot;:{
 	&quot;id&quot;: &quot;${__P(TENANT_ID)}&quot;
-},&quot;query&quot;:&quot;query GetTenant($id: ID!) {\n\tgetTenantEntry(id: $id) {\n\t\tid\n\t}\n}&quot;}</stringProp>
+},&quot;query&quot;:&quot;query GetTenantEntry($id: ID!){\n    getTenantEntry(id: $id) {\n    id\n    domain\n    networks {\n      items {\n        id\n        AgentToken\n        vpcid\n        nwcidr\n        vpnRoutes\n        networkTag\n        \n        name\n        devicemgmt\n        description\n        createdAt\n        updatedAt\n        validationCode\n        networkType\n      }\n      nextToken\n    }\n    gcpconnectors {\n      items {\n        id\n        name\n        keyjson\n        project_id\n        private_key_id\n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    createdby\n    groups\n    webClientId\n    idpDomain\n    idpProvider {\n      type\n      name\n      iconUrl\n      defaultRoleId\n      enabled\n      accessToken {\n        host\n        token\n      }\n      oktaAPIToken\n      oktaDomainUrl\n      samlMetaDataID\n      advanced\n    }\n    \n    name\n    description\n    createdAt\n    firstLogin\n    acountApiUsername\n    acountApiPassword\n    certificateAuthorities {\n      id\n      caName\n      caType\n      privateKeyValue\n      publicKeyValue\n      certificateValue\n      validTTL\n      subject\n      cryptoInfo\n    }\n    keymanagements {\n      id\n      kmsName\n      kmsType\n      networkID\n      hiddenResourceID\n      vaultHost\n      vaultRoleID\n      vaultSecretID\n      vaultLoginPath\n      vaultSignPath\n      vaultSignHostCAPath\n      vaultNamespace\n      vaultEnableDyn\n      vaultTriggerDynPath\n      vaultTriggerDynKey\n      vaultTriggerDynAccount\n      vaultDynScript\n      vaultServerConnectionStatus\n      vaultServerVersion\n      vaultClusterName\n      azureKeyAlg\n      azureActiveAt\n      azureExpireAt\n      awsCredentialId\n      awsRegion\n    }\n    webhookConfigs {\n      items {\n        id\n        \n        channelType\n        enabled\n        \n        createdAt\n        updatedAt\n      }\n      nextToken\n    }\n    privacyNoticesLink\n    termOfUseLink\n    sku {\n      skuType\n      name\n            capacity {\n                customizedDomain\n                features\n                logRetationDays\n                networkQuota\n                resourceProtocol\n                resourceQuota\n                userQuota\n            }\n    }\n    paidUserQuota\n    paidSubscriptionStartAt\n    idleTimeout\n    vpnCidr\n    vpnServerIp\n    vpnDns\n    enableVpn\n    azureConnector {\n      tenantId\n      clientId\n      crt\n      key\n      fingerprint\n    }\n    azureKeyVaults\n    sessRecordingExpire\n    magicLinkDuration\n    updatedAt\n    }\n}&quot;}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
               </elementProp>
             </collectionProp>
           </elementProp>
           <stringProp name="HTTPSampler.domain">${__P(APOLLO_SERVER_HOSTNAME)}</stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.port">${__P(APOLLO_SERVER_PORT)}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${__P(APOLLO_SERVER_PROTOCOL)}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/graphql</stringProp>
+          <stringProp name="HTTPSampler.path">${__P(APOLLO_SERVER_PATH)}</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
           <stringProp name="GraphQLHTTPSampler.operationName"></stringProp>
-          <stringProp name="GraphQLHTTPSampler.query">query GetTenant($id: ID!) {
-	getTenantEntry(id: $id) {
-		id
-	}
-}
-</stringProp>
+          <stringProp name="GraphQLHTTPSampler.query">query GetTenantEntry($id: ID!){
+    getTenantEntry(id: $id) {
+    id
+    domain
+    networks {
+      items {
+        id
+        AgentToken
+        vpcid
+        nwcidr
+        vpnRoutes
+        networkTag
+        
+        name
+        devicemgmt
+        description
+        createdAt
+        updatedAt
+        validationCode
+        networkType
+      }
+      nextToken
+    }
+    gcpconnectors {
+      items {
+        id
+        name
+        keyjson
+        project_id
+        private_key_id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdby
+    groups
+    webClientId
+    idpDomain
+    idpProvider {
+      type
+      name
+      iconUrl
+      defaultRoleId
+      enabled
+      accessToken {
+        host
+        token
+      }
+      oktaAPIToken
+      oktaDomainUrl
+      samlMetaDataID
+      advanced
+    }
+    
+    name
+    description
+    createdAt
+    firstLogin
+    acountApiUsername
+    acountApiPassword
+    certificateAuthorities {
+      id
+      caName
+      caType
+      privateKeyValue
+      publicKeyValue
+      certificateValue
+      validTTL
+      subject
+      cryptoInfo
+    }
+    keymanagements {
+      id
+      kmsName
+      kmsType
+      networkID
+      hiddenResourceID
+      vaultHost
+      vaultRoleID
+      vaultSecretID
+      vaultLoginPath
+      vaultSignPath
+      vaultSignHostCAPath
+      vaultNamespace
+      vaultEnableDyn
+      vaultTriggerDynPath
+      vaultTriggerDynKey
+      vaultTriggerDynAccount
+      vaultDynScript
+      vaultServerConnectionStatus
+      vaultServerVersion
+      vaultClusterName
+      azureKeyAlg
+      azureActiveAt
+      azureExpireAt
+      awsCredentialId
+      awsRegion
+    }
+    webhookConfigs {
+      items {
+        id
+        
+        channelType
+        enabled
+        
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    privacyNoticesLink
+    termOfUseLink
+    sku {
+      skuType
+      name
+            capacity {
+                customizedDomain
+                features
+                logRetationDays
+                networkQuota
+                resourceProtocol
+                resourceQuota
+                userQuota
+            }
+    }
+    paidUserQuota
+    paidSubscriptionStartAt
+    idleTimeout
+    vpnCidr
+    vpnServerIp
+    vpnDns
+    enableVpn
+    azureConnector {
+      tenantId
+      clientId
+      crt
+      key
+      fingerprint
+    }
+    azureKeyVaults
+    sessRecordingExpire
+    magicLinkDuration
+    updatedAt
+    }
+}</stringProp>
           <stringProp name="GraphQLHTTPSampler.variables">{
 	&quot;id&quot;: &quot;${__P(TENANT_ID)}&quot;
 }
@@ -276,10 +426,20 @@ ${__setProperty(TENANT_ID, ${tenantId})}</stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
+        <hashTree>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON Assertion" enabled="true">
+            <stringProp name="JSON_PATH">data.getTenantEntry.id</stringProp>
+            <stringProp name="EXPECTED_VALUE">${__P(TENANT_ID)}</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">true</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-        <boolProp name="ResultCollector.error_logging">true</boolProp>
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
           <value class="SampleSaveConfiguration">

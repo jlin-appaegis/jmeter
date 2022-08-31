@@ -1,0 +1,21 @@
+# development
+/.idea/
+/.git/
+/.gitignore
+/.dockerignore
+/Dockerfile
+
+# dependencies
+/node_modules/
+
+
+# JMeter
+/*.properties
+/*.jmx
+
+# logs
+/*.log
+*.jtl
+
+# documents
+/README.md
